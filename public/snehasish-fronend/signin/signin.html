@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signin.css">
+    <title>Sign in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section id="sign-in-container">
+        <!-- Left container for Sign up form -->
+        <div id="left-container" class="container">
+            <!-- for name email and password -->
+            <div id="sign-in" >
+                <img src="images/signin-avatar.svg" alt="avatar" id="avatar" > 
+                <form action="" class="form">
+                    <div class="input-container">
+                        <img src="images/signin-email.svg" alt="mail" id="mail">
+                        <input type="email" name="email" id="signin-email" placeholder="Email" required class="input-box">
+                    </div>
+                    <div class="input-container">
+                        <img src="images/signin-password.svg" alt="password" id="password">
+                        <input type="password" name="password" id="signin-pass" placeholder="Password" required class="input-box"> 
+                    </div>
+                    <a href="#" id="forgot-password"><h5>Forgot password ?</h5></a>
+                    <div id="buttons">
+                        <button id="next" class="sign-in-button">Sign in</button>
+                    </div>
+                </form>
+                <span>or</span>
+                <button id="google" class="input-shadow">
+                    <img src="images/signin-google.svg" alt="google">
+                    <span><a href="#">Sign in with Google</a></span>
+                </button>
+                <a href="#" class="switch" >Not registered yet? <span>Sign up here</span></a>
+            </div>
+        </div>
+        <!-- Right container for Illustration -->
+        <div id="right-container" class="container">
+            <div id="welcome">
+                <img src="images/signin-illustration.svg" alt="illustration " id="illustration"> 
+            </div>
+        </div>
+    </section>
+</body>
+</html>

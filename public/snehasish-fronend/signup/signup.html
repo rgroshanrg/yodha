@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/signup.css">
+    <title>Sign up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section id="sign-up-container">
+        <!-- Left container for Sign up form -->
+        <div id="left-container" class="container">
+            <!-- for name email and password -->
+            <div id="sign-up">
+                <img src="/images/signup-avatar.svg" alt="avatar" id="avatar" > 
+                <form action="" class="form">
+                    <div class="input-container">
+                        <img src="/images/signup-user.svg" alt="user" id="user">
+                        <input type="text" name="name" id="name" placeholder="Full Name" required class="input-box">
+                    </div>
+                    <div class="input-container">
+                        <img src="/images/signup-email.svg" alt="mail" id="mail">
+                        <input type="email" name="email" id="signup-email" placeholder="Email" required class="input-box">
+                    </div>
+                    <div class="input-container">
+                        <img src="/images/signup-password.svg" alt="password" id="password">
+                        <input type="password" name="password" id="signup-pass" placeholder="Password" required class="input-box"> 
+                    </div>
+                    <div id="buttons">
+                        <button id="next" class="sign-up-button">Sign up</button>
+                    </div>
+                </form>
+                <span>or</span>
+                <button id="google" class="input-shadow">
+                    <img src="/images/signup-google.svg" alt="google">
+                    <span><a href="#">Sign up with Google</a></span>
+                </button>
+                <a href="#" id="sign-in" class="switch" >Already registered ? <span>Sign in here</span></a>
+            </div>
+        </div>
+        <!-- Right container for Illustration -->
+        <div id="right-container" class="container">
+            <div id="welcome">
+                <img src="/images/signup-illustration.svg" alt="illustration " id="illustration"> 
+            </div>
+        </div>
+    </section>
+</body>
+</html>

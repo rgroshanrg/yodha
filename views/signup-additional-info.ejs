@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/signup-additional-info.css">
+    <title>Additional Information</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section id="sign-up-container">
+        <!-- Left container for Sign up form -->
+        <div id="left-container" class="container">    
+            <!-- for other information -->
+            <div id="more-info">
+                <img src="/images/signup-avatar.svg" alt="avatar" id="avatar">
+
+                <% if(error.length > 0) { %>
+                    <div style="background-color: #fce4e4; border: 1px solid #fcc2c3; float: left; padding: 20px 30px;">
+                        <span style="color: #cc0033; font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: bold; line-height: 20px; text-shadow: 1px 1px rgba(250,250,250,.3);">
+                            <%= error %>
+                        </span>
+                    </div>
+                <% } %>
+
+                <form action="/auth/signup/additional" method="POST" class="form">
+                    <div class="input-container" class="input-shadow">
+                        <label for="institute">Institute :</label>
+                        <select name="institute" id="institute" required class="input-box">
+                            <option value="C.V. Raman Global University">C.V Raman Global University</option>
+                        </select>
+                    </div>
+                    <div class="input-container" class="input-shadow">
+                        <label for="stream">Stream :</label>
+                        <input type="text" name="stream" id="stream" placeholder="Ex: B.tech CSE" required class="input-box">
+                    </div>
+                    <div class="input-container" class="input-shadow">
+                        <label for="Semester">Semester :</label>
+                        <select name="semester" id="semester" required class="input-box">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+                    <div class="input-container" class="input-shadow">
+                        <label for="roll-no">Roll no :</label>
+                        <input type="text" name="rollNo" id="roll-no" placeholder="Ex: CS0000" required class="input-box">
+                    </div>
+                    <div class="input-container" class="input-shadow">
+                        <label for="group">Group :</label>
+                        <input type="text" name="group" id="group" placeholder="Ex: A" required class="input-box">
+                    </div>
+                    <div id="buttons" class="input-shadow">
+                        <button type="submit" id="register" class="sign-up-button">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Right container for Illustration -->
+        <div id="right-container" class="container">
+            <div id="welcome">
+                <img src="/images/signup-illustration.svg" alt="illustration " id="illustration"> 
+            </div>
+        </div>
+    </section>
+</body>
+</html>
