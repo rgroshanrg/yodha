@@ -8,6 +8,7 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const User = require('./utils/models/user-model');
 
 const keys = require('./config/keys');
 const passportSetup = require('./config/passport-setup');
@@ -82,6 +83,7 @@ server.use('/profile', profileRoutes);
 server.get('/', isLoggedIn, (req, res) => {
     res.render('index', {name: req.user.name});
 });
+
 
 server.listen( 3000, () => {
     console.log('Server has Started on PORT 3000');

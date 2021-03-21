@@ -1,5 +1,216 @@
-<h1>This is HOME</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@700&family=Do+Hyeon&family=Montserrat:wght@500&family=Rubik&family=Ubuntu&display=swap" rel="stylesheet">
+    <title>Yodha</title>
+</head>
+<body>
+  <header>
+      <nav>
+          <p>YODHA</p>
+          <ul>
+              <li><a href="#footer">Contact us</a></li>
+              <li><a href="#about">about us</a></li>
+              <li><a href="#footer"><%= name %> - General</a></li>
+              <li><a href="/auth/logout/">Logout</a></li>
+          </ul>
+      </nav>
+  </header>
+  <section id="covid-19-dashboard">
+    <div id="card-container">
+        <div id="confirmed" class="covid-card">Confirmed:</div>
+        <div id="recovered" class="covid-card">Recovered:</div>
+        <div id="active" class="covid-card">Active:</div>
+        <div id="deceased" class="covid-card">Deceased:</div>
+    </div>
+    <p id="label">COVID19 Dashboard <p id="title-element">Last Updated On:</p>
+   </Section>
+   <section id="info">
+     <div class="box" id="do">
+         <h1>Do's</h1>
+         <ul>
+             <li>Clean the floor and commonly touched objects at least once a day at home.</li>
+             <li>Try to engage your child in indoor activities.</li>
+             <li>Clean the child’s toys’ at least once a day.</li>
+         </ul>
+     </div>
+     <div class="box" id="dont">
+        <h1>Dont's</h1>
+        <ul>
+            <li>Don’t allow your child to come in close contact with anyone who has a cold, fever or flu-like symptoms.</li>
+            <li>Don’t take children to crowded places. Keep them indoors as much as possible.</li>
+            <li>Don't eat roadside food.</li>
+        </ul>
+     </div>
+    </section>
+
+
+
+
+    <section>
+        <form action="/complains-general" method="POST" class="form">
+            <div class="input-container">
+                <!-- <img src="/images/signup-user.svg" alt="user" id="user"> -->
+                <input type="text" name="complain" id="complain" placeholder="Write your issue here..." required class="input-box">
+            </div>
+            <div id="buttons">
+                <button type="submit" id="next" class="sign-up-button">Send Complain</button>
+            </div>
+        </form>
+    </section>
+
+
+
+
+
+  <footer id="footer">
+    <section>
+        <div>
+          <h1>
+              About us
+          </h1>
+            <p>
+                Yodha is a website designed by <br>a group of students to help tackel <br>the problems related to Covid-19. <br> It ia one stop place for Covid-19.
+            </p>
+        </div>
+        <div>
+          <h1>
+              Useful links
+          </h1>
+          <p>> <a href="#">Contact</a><br>> <a href="#">About us</a><br>> <a href="#">Help</a></p>
+      </div>
+        <div>
+            <h1>
+                Contact us
+            </h1>
+            <p>+91 1122334455<br>+91 6677889900<br>contact@yodha.com</p>
+        </div>
+
+    </section>
+    <p id="copy">&copy; Yodha 2021</p>
+</footer>
+<script>
+    var refresh=true;
+     var state;
+     var STATE_code;
+     const covidapi="https://api.covid19india.org/v4/data.json";
+     const api_url = 'https://api.covid19india.org/states_daily.json';
+     
+     // for displaying the data and making the donought chart
+     async function displaydata()
+         {
+          
+fetch(covidapi).then((response)=>{
+    return response.json();
+}).then((mydata)=>{
+    console.log(mydata[STATE_code].total.confirmed);
+    elt =mydata[STATE_code].total;
+    active=elt.confirmed-elt.recovered-elt.deceased;
+    
+           var pin1 = document.getElementById('active');
+           var pin2 = document.getElementById('recovered');
+           var pin3 = document.getElementById('confirmed');
+           var pin4 = document.getElementById('deceased');
+           var d1 = `  Active:<br>${active}`
+           var d2 = `  Recovered:<br>${elt.recovered}`
+           var d3 = `  Confirmed:<br>${elt.confirmed}`
+           var d4 = `  Deceased:<br>${elt.deceased}`
+           var f1,f2,f3,f4;
+           f1=`<br><p class="change">[+ N/A ]</p>`;
+           f2=`<br><p class="change">[+ N/A ]</p> `;
+           f3=`<br><p class="change">[+ N/A ]</p> `;
+           f4=`<br><p class="change">[+ N/A ]</p> `;
+           pin1.innerHTML = d1+f1
+           pin2.innerHTML = d2+f2
+           pin3.innerHTML = d3+f3
+           pin4.innerHTML = d4+f4
+           document.getElementById('subtitle-piechart').textContent="Case Study : "+state
+})         
+              };
+              async function getJSON(){
+         const response = await fetch(api_url);
+         const data = await response.json();
+         data.states_daily.forEach(elt=>{
+           
+            if(elt.status=="Confirmed"){
+            xs.push(elt.date);
+            ys.push(elt[STATE_code.toLowerCase()]);}
+            else if(elt.status=="Recovered"){
+            rxs.push(elt.date);
+            rys.push(elt[STATE_code.toLowerCase()]);
+            }
+         });
+         
+         return{xs, ys, rys};
+     }
+    //updates the changed value field
+    async function updatechange()
+    {
+      const response2 = await fetch("https://corona.lmao.ninja/v2/countries");
+        var data2 = await response2.json();
+        data2.forEach(elt =>
+        {
+                if(elt.country=='India'){data2=elt;return;}      
+        })
+        var pin1 = document.getElementById('active');
+        var pin2 = document.getElementById('recovered');
+           var pin3 = document.getElementById('confirmed');
+           var pin4 = document.getElementById('deceased');
+           var d1 = `  Active:<br>${active}`
+           var d2 = `  Recovered:<br>${elt.recovered}`
+           var d3 = `  Confirmed:<br>${elt.confirmed}`
+           var d4 = `  Deceased:<br>${elt.deceased}`
+           var f1,f2,f3,f4;
+           var active_count=data2.todayCases-data2.todayRecovered-data2.todayDeaths;
+           if(active_count<0)
+            f1=`<br><p class="change">[${active_count}]</p>`;
+           else
+            f1=`<br><p class="change">[+${active_count}]</p>`;
+           f2=`<br><p class="change">[+${data2.todayRecovered}]</p>`;
+           f3=`<br><p class="change">[+${data2.todayCases}]</p>`;
+           f4=`<br><p class="change">[+${data2.todayDeaths}]</p>`;
+           pin1.innerHTML = d1+f1
+           pin2.innerHTML = d2+f2
+           pin3.innerHTML = d3+f3
+           pin4.innerHTML = d4+f4
+    }
+    //time of update of data
+    async function buildTable(){
+        const response = await fetch('https://api.covid19india.org/v4/data.json');
+        const response2 = await fetch("https://corona.lmao.ninja/v2/countries");
+        var data2 = await response2.json();
+        data2.forEach(elt =>
+        {
+                if(elt.country=='India'){data2=elt;return;}      
+        })
+        var data = await response.json();
+        console.log(data[STATE_code].total);
+        var pin5 = document.getElementById('title-element');
+        console.log(data2);
+        var pin6 = document.getElementById("label");
+        pin6.innerHTML = `COVID19 Dashboard of `+ state 
+        updatedFormatted = new Date(data2.updated).toLocaleString();
+        var d5 = `<p id="title-element">Last Updated On:${updatedFormatted}`
+        pin5.innerHTML = d5;
+
+    }
+
+      var STATE_code='TT';
+      var state="India";
+      displaydata();
+      getJSON();
+      buildTable();
+      updatechange();
+     
+</script>
+</body>
+</html>
+
+<!-- <h1>This is HOME</h1>
 <h2>LoggedIn as <%= name %></h2>
 <a href="/auth/signup/">Signup</a>
 <a href="/auth/login/">Login</a>
-<a href="/auth/logout/">Logout</a>
+<a href="/auth/logout/">Logout</a> -->

@@ -1,9 +1,9 @@
 const isLoggedIn = (req, res, next) => {
     console.log("Check - isLoggedIn [2]");
     if(req.user) {
-        // if(req.user.semester === null) {
-        //     // return res.redirect('/auth/signup/additional');
-        // }
+        if(req.user.hasVerifiedEmail === false) {
+            return res.send('Click the emailed Link');
+        }
         next();
     } else {
         res.redirect('/auth/login');

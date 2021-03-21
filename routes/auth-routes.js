@@ -27,6 +27,7 @@ router.get('/confirmation/:token', function(req, res) {
                     console.log("auth-routes [64]");
                     User.findOne({_id: id}, (err, user) => {
                         user.hasVerifiedEmail = true;
+                        user.isGeneralPublic = true;
                         console.log("auth-routes [67]");
                         user.save().then(() => {
                             res.redirect('/');
@@ -65,6 +66,7 @@ router.post('/signup', (req, res) => {
         username: req.body.email,
         email: req.body.email,        
         name: req.body.name,
+        isGeneralPublic: true
     });
 
     User.findOne({email: req.body.email}, (err, user) => {
@@ -153,6 +155,52 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     // console.log(req.user);
     res.redirect('/');
 });
+
+
+router.get('/admin-panel', isLoggedIn, (req, res) => {
+    if(req.user.isAdmin === true)
+        res.render('admin-panel');
+    else {
+        res.send('Not Accessible');
+    }
+})
+
+// server.get('/add-health-worker', (req, res) => {
+//     res.redirect('/admin-panel')
+// })
+
+router.post('/add-health-worker', (req, res) => {
+    let newUser = new User({
+        username: req.body.email,
+        email: req.body.email,
+        name: req.body.name,
+        isAdmin: true
+    });
+    console.log(req.body);
+    User.findOne({email: req.body.email}, (err, user) => {
+        if(!user) {
+            User.register(newUser, req.body.password, (err, user) => {
+                // console.log("Check - auth-routes [29]");
+                if(err) {
+                    console.log(err);
+                    req.flash('error', 'Sorry for inconvenience, Please Try Again.');
+                    return res.redirect('/auth/signup')
+                }
+                // passport.authenticate('local')(req, res, function() {
+                //     console.log("Check - auth-routes [35]");
+                //     req.flash('success', 'Added.')
+                //     return res.redirect('/admin-panel');
+                // });
+                return res.redirect('/auth/admin-panel');
+        
+            });
+        } else {
+            req.flash('error', 'Already a user is present with same email. Try login with Google.')
+        }
+    }).then(() => {
+        res.redirect('/auth/login');
+    })
+})
 
 
 

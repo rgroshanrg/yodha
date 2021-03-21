@@ -44,7 +44,8 @@ passport.use(new GoogleStrategy({
                                 googleID: profile.id,
                                 email: profile._json.email,
                                 username: profile._json.email,
-                                hasVerifiedEmail: true
+                                hasVerifiedEmail: true,
+                                isGeneralPublic: true
                             }).save().then((newUser) => {
                                 // console.log(newUser);
                                 // newUser.authenticate();
