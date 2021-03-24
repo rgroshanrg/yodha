@@ -12,28 +12,14 @@ const User = require('./utils/models/user-model');
 
 const keys = require('./config/keys');
 const passportSetup = require('./config/passport-setup');
+
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
+const complainRoutes = require('./routes/complain-routes');
+const suggestionRoutes = require('./routes/suggestion-routes');
+
 const isLoggedIn = require('./utils/middlewares/isLoggedIn');
 const isNotLoggedIn = require('./utils/middlewares/isNotLoggedIn');
-
-
-
-
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://covweb:jDF74nZUCxTGUKn@cov-web.uygus.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
-
-
-
-
-
-
 
 
 // View Engine Set
@@ -68,17 +54,13 @@ mongoose.connect(keys.MONGO.URI,connectionParams).then( () => {
         console.error(`Error connecting to the database. \n${err}`);
     })
 
-// MongoDB Database Connection
-// mongoose.connect(keys.MONGO.URI, () => {
-//      console.log("DataBase Connected");
-// })
-
-
 server.use(express.static(path.join(__dirname, '/public')));
 
 //set up routes
 server.use('/auth', authRoutes);
 server.use('/profile', profileRoutes);
+server.use('/complain', complainRoutes);
+server.use('/suggestion', suggestionRoutes);
 
 server.get('/', isLoggedIn, (req, res) => {
     res.render('index', {name: req.user.name});

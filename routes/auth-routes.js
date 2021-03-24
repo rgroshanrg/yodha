@@ -49,13 +49,13 @@ router.get('/confirmation/:token', function(req, res) {
 
 
 // MiddleWare to check if User has LoggedIn but not filled Additional Infos
-const isCompletedReg = (req, res, next) => {
-    if(req.user && req.user.rollNo == null) {
-        next();
-    } else {
-        res.redirect('/auth/login');
-    }
-}
+// const isCompletedReg = (req, res, next) => {
+//     if(req.user && req.user.rollNo == null) {
+//         next();
+//     } else {
+//         res.redirect('/auth/login');
+//     }
+// }
 
 router.get('/signup', isNotLoggedIn, (req, res) => {
     res.render('signup', {error: req.flash('error')});
@@ -93,28 +93,6 @@ router.post('/signup', (req, res) => {
 
 });
 
-
-router.get('/signup/additional', isCompletedReg,  (req, res) => {
-    res.render('signup-additional-info', {error: req.flash('error')});
-})
-
-router.post('/signup/additional', (req, res) => {
-    User.findOne({_id: req.user._id}, (err, user) => {
-        if(err) {
-            req.flash('error', 'Sorry for inconvenience, Please Try Again.');
-            res.redirect('/auth/signup/additional')
-            console.log(err);
-        } else {
-            user.college = req.body.institute;
-            user.stream = req.body.stream;
-            user.semester = req.body.semester;
-            user.rollNo = req.body.rollNo;
-            user.group = req.body.group;
-            user.save();
-            res.redirect('/');
-        }
-    });
-})
 
 router.get('/login', isNotLoggedIn, (req, res) => {
     res.render('signin', {error: req.flash('error')});
@@ -159,49 +137,64 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
 
 router.get('/admin-panel', isLoggedIn, (req, res) => {
     if(req.user.isAdmin === true)
-        res.render('admin-panel');
+        res.render('admin-panel', {error: req.flash('error')});
     else {
         res.send('Not Accessible');
     }
 })
 
-// server.get('/add-health-worker', (req, res) => {
-//     res.redirect('/admin-panel')
-// })
 
-router.post('/add-health-worker', (req, res) => {
-    let newUser = new User({
-        username: req.body.email,
-        email: req.body.email,
-        name: req.body.name,
-        isAdmin: true
-    });
-    console.log(req.body);
-    User.findOne({email: req.body.email}, (err, user) => {
-        if(!user) {
-            User.register(newUser, req.body.password, (err, user) => {
-                // console.log("Check - auth-routes [29]");
-                if(err) {
-                    console.log(err);
-                    req.flash('error', 'Sorry for inconvenience, Please Try Again.');
-                    return res.redirect('/auth/signup')
-                }
-                // passport.authenticate('local')(req, res, function() {
-                //     console.log("Check - auth-routes [35]");
-                //     req.flash('success', 'Added.')
-                //     return res.redirect('/admin-panel');
-                // });
-                return res.redirect('/auth/admin-panel');
-        
+router.post('/admin-panel', isLoggedIn, (req, res) => {
+    if(req.user.isAdmin === true) {
+        var newUser;
+        if(req.body.acctype === "Health Worker") {
+            newUser = new User({
+                username: req.body.username,
+                email: req.body.username,
+                name: req.body.name,
+                isHealthWorker: true,
+                hasVerifiedEmail: true
+            });
+        } else if(req.body.acctype == "Government Official") {
+            newUser = new User({
+                username: req.body.username,
+                email: req.body.username,
+                name: req.body.name,
+                isGovtOfficial: true,
+                hasVerifiedEmail: true
             });
         } else {
-            req.flash('error', 'Already a user is present with same email. Try login with Google.')
+            newUser = new User({
+                username: req.body.username,
+                email: req.body.username,
+                name: req.body.name,
+                isGeneralPublic: true,
+                hasVerifiedEmail: true
+            });
         }
-    }).then(() => {
-        res.redirect('/auth/login');
-    })
+
+        User.findOne({email: req.body.username}, (err, user) => {
+                    if(!user) {
+                        User.register(newUser, req.body.password, (err, user) => {
+                            // console.log("Check - auth-routes [29]");
+                            if(err) {
+                                console.log(err);
+                                req.flash('error', 'Sorry for inconvenience, Please Try Again.');
+                                return res.redirect('/auth/admin-panel')
+                            }
+                    
+                        });
+                    } else {
+                        req.flash('error', 'Already a user is present with same email. Try login with Google.')
+                    }
+                }).then(() => {
+                    req.flash('error', 'User Created');
+                    res.redirect('/auth/admin-panel');
+                })
+
+    } else {
+        res.send("Access Denied");
+    }
 })
-
-
 
 module.exports = router;
