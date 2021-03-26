@@ -10,13 +10,21 @@
 <body>
   <header>
       <nav>
-          <p>YODHA</p>
+          <a href="index.html" id="logo">YODHA</a>
           <ul>
-              <li><a href="#footer">Contact us</a></li>
-              <li><a href="#about">about us</a></li>
-              <li><a href="#footer">login</a></li>
+              <li><a href="#footer">About us</a></li>
+              <li><a href="#cards">Services</a></li>
+              <li><a href="#">login</a></li>
           </ul>
       </nav>
+      <div class="scroll">
+          <div class="heading" id="do"><span>Do's</span></div>
+          <div class="content"><marquee behavior="scroll" direction="left">Clean the floor and commonly touched objects at least once a day at home.     Try to engage your child in indoor activities.     Clean the child’s toys’ at least once a day.</marquee></div>
+      </div>
+      <div class="scroll">
+        <div class="heading" id="dont"><span>Don'ts</span></div>
+        <div class="content"><marquee behavior="scroll" direction="left">Don’t allow your child to come in close contact with anyone who has a cold, fever or flu-like symptoms.     Don’t take children to crowded places. Keep them indoors as much as possible.     Don't eat roadside food.</marquee></div>
+     </div>
   </header>
   <section id="covid-19-dashboard">
     <div id="card-container">
@@ -27,23 +35,41 @@
     </div>
     <p id="label">COVID19 Dashboard <p id="title-element">Last Updated On:</p>
    </Section>
-   <section id="info">
-     <div class="box" id="do">
-         <h1>Do's</h1>
-         <ul>
-             <li>Clean the floor and commonly touched objects at least once a day at home.</li>
-             <li>Try to engage your child in indoor activities.</li>
-             <li>Clean the child’s toys’ at least once a day.</li>
-         </ul>
-     </div>
-     <div class="box" id="dont">
-        <h1>Dont's</h1>
-        <ul>
-            <li>Don’t allow your child to come in close contact with anyone who has a cold, fever or flu-like symptoms.</li>
-            <li>Don’t take children to crowded places. Keep them indoors as much as possible.</li>
-            <li>Don't eat roadside food.</li>
-        </ul>
-     </div>
+    <section id="cards">
+        <div class="card_div" id="container1">
+            <div class="card">
+                <img src="images/testing.png" alt="" class="icons">
+                <h6 class="card_text">Covid-19 Testing Centers</h6>
+                <a href="" class="card_link">Check now</a>
+            </div>
+            <div class="card">
+                <img src="images/vaccination.png" alt="" class="icons">
+                <h6 class="card_text">Covid-19 Vaccination Centers</h6>
+                <a href="" class="card_link">Check now</a>
+            </div>
+            <div class="card">
+                <img src="images/faq.png" alt="" class="icons">
+                <h6 class="card_text">Frequently asked questions</h6>
+                <a href="" class="card_link">Check now</a>
+            </div>
+        </div>
+        <div class="card_div" id="container1">
+            <div class="card">
+                <img src="images/inventory.png" alt="" class="icons">
+                <h6 class="card_text">Inventory</h6>
+                <a href="" class="card_link">Check now</a>
+            </div>
+            <div class="card">
+                <img src="images/appointment.png" alt="" class="icons">
+                <h6 class="card_text">Book an appointment</h6>
+                <a href="" class="card_link">Book now</a>
+            </div>
+            <div class="card">
+                <img src="images/complain.png" alt="" class="icons">
+                <h6 class="card_text">Complain and suggestions</h6>
+                <a href="" class="card_link">Write now</a>
+            </div>
+        </div>
     </section>
   <footer id="footer">
     <section>
@@ -59,7 +85,7 @@
           <h1>
               Useful links
           </h1>
-          <p>> <a href="#">Contact</a><br>> <a href="#">About us</a><br>> <a href="#">Help</a></p>
+          <p>> <a href="#">Services</a><br>> <a href="#">About us</a><br>> <a href="#">Help</a></p>
       </div>
         <div>
             <h1>
