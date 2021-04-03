@@ -78,7 +78,7 @@ a
 #diagnose form
 {
     width: 500px;
-    height: 750px;
+    height: 770px;
     background-color: rgba(250, 249, 249,0.7);
     position: absolute;
     left: 50%;
@@ -166,6 +166,18 @@ input:focus
 {
     font-size: 18px;
     margin-bottom: 10px;
+}
+#reponse
+{
+    width: 100%;
+
+}
+#answer
+{
+    color: red;
+    text-align: center;
+    margin-left: 100px;
+    font-size: 18px;
 }
 footer
 {
