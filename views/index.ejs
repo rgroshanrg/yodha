@@ -10,20 +10,39 @@
 <body>
   <header>
       <nav>
-          <p>YODHA</p>
+          <a href="/" id="logo">YODHA</a>
           <ul>
-              <li><a href="#footer">Contact us</a></li>
-              <li><a href="#about">about us</a></li>
-              <li><a href="#footer"><%= name %> - General</a></li>
-              <li><a href="/auth/logout/">Logout</a></li>
+              <li><a href="#cards">Services</a></li>
+              <li><a href="#footer">About us</a></li>
+              <!-- <li><a href="#">login</a></li> -->
+              <% if(isAuthenticated) { %>
+                  <% if(type === 'gp'){ %>
+                    <li><a href="#"><%= name %> - General</a></li>
+                  <% }else if(type === 'hw') {%>
+                    <li><a href="#"><%= name %> - Health Worker</a></li>
+                  <% }else if(type === 'go') {%>
+                    <li><a href="#"><%= name %> - Govt. Official</a></li>
+                  <%} else if(type === 'ad') {%>
+                    <li><a href="#"><%= name %> - ADMIN</a></li>
+                  <%}else {%>
+                    <li><a href="#"><%= name %></a></li>
+                  <%}%>
+                 <li><a href="/auth/logout">Logout</a></li>
+              <%} else {%>
+                <li><a href="/auth/signup">Sign Up</a></li>
+                <li><a href="/auth/login">Login</a></li>
+              <% } %>
           </ul>
       </nav>
-      <!-- <marquee height=30px width=700px   bgcolor="#93de2a" loop=10  direction="left">Clean the floor and commonly touched objects  |   Try to engage your child in indoor activities.  |   Clean the child’s toys.</marquee>
-      <marquee float="left" height=30px width=700px   bgcolor="#fc4e4e" loop=10  direction="left">Clean the floor and commonly touched objects  |   Try to engage your child in indoor activities.  |   Clean the child’s toys.</marquee> -->
+      <div class="scroll">
+          <div class="heading" id="do"><span>Do's</span></div>
+          <div class="content"><marquee behavior="scroll" direction="left">Clean the floor and commonly touched objects at least once a day at home.     Try to engage your child in indoor activities.     Clean the child’s toys’ at least once a day.</marquee></div>
+      </div>
+      <div class="scroll">
+        <div class="heading" id="dont"><span>Don'ts</span></div>
+        <div class="content"><marquee behavior="scroll" direction="left">Don’t allow your child to come in close contact with anyone who has a cold, fever or flu-like symptoms.     Don’t take children to crowded places. Keep them indoors as much as possible.     Don't eat roadside food.</marquee></div>
+     </div>
   </header>
-
-  
-
   <section id="covid-19-dashboard">
     <div id="card-container">
         <div id="confirmed" class="covid-card">Confirmed:</div>
@@ -33,44 +52,158 @@
     </div>
     <p id="label">COVID19 Dashboard <p id="title-element">Last Updated On:</p>
    </Section>
-   <!-- <section id="info">
-     <div class="box" id="do">
-         <h1>Do's</h1>
-         <ul>
-             <li>Clean the floor and commonly touched objects at least once a day at home.</li>
-             <li>Try to engage your child in indoor activities.</li>
-             <li>Clean the child’s toys’ at least once a day.</li>
-         </ul>
-     </div>
-     <div class="box" id="dont">
-        <h1>Dont's</h1>
-        <ul>
-            <li>Don’t allow your child to come in close contact with anyone who has a cold, fever or flu-like symptoms.</li>
-            <li>Don’t take children to crowded places. Keep them indoors as much as possible.</li>
-            <li>Don't eat roadside food.</li>
-        </ul>
-     </div> -->
-    </section>
+
+   <section id="cas-btns">
+        <%if(type === 'ad') {%>
+        <a href="/auth/admin-panel" style=" background-color: #4f44ec;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 45%;
+        cursor: pointer;">Add Users</a>
+    <%}%>
 
 
 
+   </section>
 
-    <section>
-        <form action="/complains-general" method="POST" class="form">
-            <div class="input-container">
-                <!-- <img src="/images/signup-user.svg" alt="user" id="user"> -->
-                <input type="text" name="complain" id="complain" placeholder="Write your issue here..." required class="input-box">
+    <section id="cards">
+        <% if(type != 'go' && type != 'hw' && type != 'ad') { %>
+        <div class="card_div" id="container1">
+            <div class="card">
+                <img src="images/testing.png" alt="" class="icons">
+                <h6 class="card_text">Covid-19 Testing Centers</h6>
+                <a href="/maps/testing-centers" class="card_link">Check now</a>
             </div>
-            <div id="buttons">
-                <button type="submit" id="next" class="sign-up-button">Send Complain</button>
+            <div class="card">
+                <img src="images/vaccination.png" alt="" class="icons">
+                <h6 class="card_text">Covid-19 Vaccination Centers</h6>
+                <a href="/maps/vaccination-centers" class="card_link">Check now</a>
             </div>
-        </form>
+            <div class="card">
+                <img src="images/faq.png" alt="" class="icons">
+                <h6 class="card_text">Frequently asked questions</h6>
+                <a href="/faq" class="card_link">Check now</a>
+            </div>
+        </div>
+        <div class="card_div" id="container1">
+            <div class="card">
+                <img src="images/inventory.png" alt="" class="icons">
+                <h6 class="card_text">Inventory</h6>
+                <a href="/inventory" class="card_link">Check now</a>
+            </div>
+            <div class="card">
+                <img src="images/appointment.png" alt="" class="icons">
+                <h6 class="card_text">Request Covid Test</h6>
+                <a href="/request-covid" class="card_link">Request now</a>
+            </div>
+            <div class="card">
+                <img src="images/complain.png" alt="" class="icons">
+                <h6 class="card_text"> Write Complain/Suggestions</h6>
+                <a href="/feedback" class="card_link">Write now</a>
+            </div>
+        </div>
+
+
+        <div class="card_div" id="container1">
+            <div class="card">
+                <img src="images/vaccination.png" alt="" class="icons">
+                <h6 class="card_text">Request Vaccinations</h6>
+                <a href="/request-vaccination" class="card_link">Request now</a>
+            </div>
+            <div class="card">
+                <img src="images/testing.png" alt="" class="icons">
+                <h6 class="card_text">Self Diagnosis</h6>
+                <a href="/self-diagnosis" class="card_link">Diagnose now</a>
+            </div>
+        </div>
+        <%}%>
+        <%if(type === 'hw') {%>
+
+            <div class="card_div" id="container1">
+                <div class="card">
+                    <img src="images/testing.png" alt="" class="icons">
+                    <h6 class="card_text">Covid-19 Testing Centers</h6>
+                    <a href="/maps/testing-centers" class="card_link">Check now</a>
+                </div>
+                <div class="card">
+                    <img src="images/vaccination.png" alt="" class="icons">
+                    <h6 class="card_text">Covid-19 Vaccination Centers</h6>
+                    <a href="/maps/vaccination-centers" class="card_link">Check now</a>
+                </div>
+                <div class="card">
+                    <img src="images/complain.png" alt="" class="icons">
+                    <h6 class="card_text">Check Complains/Suggestions</h6>
+                    <a href="/dashboard/#complain" class="card_link">Check now</a>
+                </div>
+            </div>
+            <div class="card_div" id="container1">
+                <div class="card">
+                    <img src="images/inventory.png" alt="" class="icons">
+                    <h6 class="card_text">Check Inventory orders</h6>
+                    <a href="/dashboard/#orders" class="card_link">Check now</a>
+                </div>
+                
+                <div class="card">
+                    <img src="images/vaccination.png" alt="" class="icons">
+                    <h6 class="card_text">Check Vaccination Requests</h6>
+                    <a href="/dashboard/#vaccination" class="card_link">Check now</a>
+                </div>
+                <div class="card">
+                    <img src="images/appointment.png" alt="" class="icons">
+                    <h6 class="card_text">Check Covid Test Requests</h6>
+                    <a href="/dashboard/#covidtests" class="card_link">Check now</a>
+                </div>
+            </div>
+            <div class="card_div" id="container1">
+                
+                <div class="card">
+                    <img src="images/complain.png" alt="" class="icons">
+                    <h6 class="card_text"> Write Complain/Suggestions</h6>
+                    <a href="/feedback" class="card_link">Write now</a>
+                </div>
+
+                <div class="card">
+                    <img src="images/faq.png" alt="" class="icons">
+                    <h6 class="card_text">Frequently asked questions</h6>
+                    <a href="/faq" class="card_link">Check now</a>
+                </div>
+            </div>
+
+        <%}%>
+        <%if(type === 'go') {%>
+            <div class="card_div" id="container1">
+                <div class="card">
+                    <img src="images/testing.png" alt="" class="icons">
+                    <h6 class="card_text">Covid-19 Testing Centers</h6>
+                    <a href="/maps/testing-centers" class="card_link">Check now</a>
+                </div>
+                <div class="card">
+                    <img src="images/vaccination.png" alt="" class="icons">
+                    <h6 class="card_text">Covid-19 Vaccination Centers</h6>
+                    <a href="/maps/vaccination-centers" class="card_link">Check now</a>
+                </div>
+                <div class="card">
+                    <img src="images/faq.png" alt="" class="icons">
+                    <h6 class="card_text">Frequently asked questions</h6>
+                    <a href="/faq" class="card_link">Check now</a>
+                </div>
+            </div>
+            <div class="card_div" id="container1">
+                <div class="card">
+                    <img src="images/complain.png" alt="" class="icons">
+                    <h6 class="card_text">Check Complains/Suggestions</h6>
+                    <a href="/dashboard/#complain" class="card_link">Check now</a>
+                </div>
+            </div>
+        <%}%>
+
+
     </section>
-
-
-
-
-
   <footer id="footer">
     <section>
         <div>
@@ -85,7 +218,7 @@
           <h1>
               Useful links
           </h1>
-          <p>> <a href="#">Contact</a><br>> <a href="#">About us</a><br>> <a href="#">Help</a></p>
+          <p>> <a href="#">Services</a><br>> <a href="#">About us</a><br>> <a href="#">Help</a></p>
       </div>
         <div>
             <h1>
@@ -213,9 +346,3 @@ fetch(covidapi).then((response)=>{
 </script>
 </body>
 </html>
-
-<!-- <h1>This is HOME</h1>
-<h2>LoggedIn as <%= name %></h2>
-<a href="/auth/signup/">Signup</a>
-<a href="/auth/login/">Login</a>
-<a href="/auth/logout/">Logout</a> -->

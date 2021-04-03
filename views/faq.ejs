@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/faq.css">
+    <title>YODHA</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="logo">YODHA</a>
+        <ul>
+            <li><a href="/#cards">Services</a></li>
+            <li><a href="#footer">About us</a></li>
+            <% if(isAuthenticated) { %>
+                <% if(type === 'gp'){ %>
+                  <li><a href="#"><%= name %> - General</a></li>
+                <% }else if(type === 'hw') {%>
+                  <li><a href="#"><%= name %> - Health Worker</a></li>
+                <% }else if(type === 'go') {%>
+                  <li><a href="#"><%= name %> - Govt. Official</a></li>
+                <%} else if(type === 'ad') {%>
+                  <li><a href="#"><%= name %> - ADMIN</a></li>
+                <%}else {%>
+                  <li><a href="#"><%= name %></a></li>
+                <%}%>
+               <li><a href="/auth/logout">Logout</a></li>
+            <%} else {%>
+              <li><a href="/auth/signup">Sign Up</a></li>
+              <li><a href="/auth/login">Login</a></li>
+            <% } %>
+        </ul>
+        </nav>
+    </header>
+    <section id="faq">
+        <h1>Frequently asked questions</h1>
+        <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick=speakfaq(1) id="h1">
+                    Where to order groceries?
+                  </button>
+                </h5>
+              </div>
+          
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body" id="1">
+                  <a style="color: blue;" href="/inventory">Click Me to Order.</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="h2" onclick=speakfaq(2)>
+                    How to request for covid test?
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body" id="2">
+                  <a style="color: blue;" href="/request-covid">Click to Request.</a>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="h3" onclick=speakfaq(3)>
+                    How do I pay for the groceries?
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body" id="3">
+                    You can make your payment by choosing any of the two options, either upi payment or cash.
+                </div>
+              </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne" id="h4" onclick=speakfaq(4)>
+                        When will this pandemic get over?
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                  <div class="card-body" id="4">
+                    <h6>Everybody from doctors to scientists are working hard to get rid of it. But it's unclear when we would be free from this deadly virus but we can make efforts from our side by following these steps:-</h6>
+                    <ol>
+                        <li>Consume proper vitamins daily</li>
+                        <li>Follow a healthy diet</li>
+                        <li>Wash hands with soap frequently</li>
+                        <li>Always wear a mask in public</li>
+                        <li>Maintain social distancing</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingFive">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive" id="h5" onclick=speakfaq(5)>
+                        What do I do if I'm covid positive?
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                  <div class="card-body" id="5">
+                    Make sure to alert the  nearest health care centre and follow all the instructions give by them. Not following this would not only put your life in danger but also of the others.
+                  </div>
+                </div>
+              </div>
+          </div>
+    </section>
+    <footer id="footer">
+        <section>
+            <div>
+              <h1>
+                  About us
+              </h1>
+                <p>
+                    Yodha is a website designed by <br>a group of students to help tackel <br>the problems related to Covid-19. <br> It ia one stop place for Covid-19.
+                </p>
+            </div>
+            <div>
+              <h1>
+                  Useful links
+              </h1>
+              <p>> <a href="#">Services</a><br>> <a href="#">About us</a><br>> <a href="#">Help</a></p>
+          </div>
+            <div>
+                <h1>
+                    Contact us
+                </h1>
+                <p>+91 1122334455<br>+91 6677889900<br>contact@yodha.com</p>
+            </div>
+    
+        </section>
+        <p id="copy">&copy; Yodha 2021</p>
+    </footer>
+    <script>
+        const voicerec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const speech = new SpeechSynthesisUtterance();
+        speech.volume=1;
+        speech.rate=1;
+        speech.pitch=1;
+        var answer;
+        var element;
+        var pre="h";
+        var flag=0;
+        var voices = window.speechSynthesis.getVoices();
+        speech.voice = voices[1];
+        function speakfaq(x) 
+        {
+          window.speechSynthesis.cancel();
+          element=document.getElementById(pre+x);  
+          if(flag!=pre+x)
+            {
+              answer=element.textContent;
+              speech.text=answer;
+              window.speechSynthesis.speak(speech);
+              answer=document.getElementById(x).textContent;
+              speech.text=answer;
+              window.speechSynthesis.speak(speech);
+              flag=pre+x;
+            }
+            else
+            {
+              flag="";
+              window.speechSynthesis.cancel();
+            }
+            
+
+        }
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/174b65465c.js" crossorigin="anonymous"></script>
+</body>
+</html>

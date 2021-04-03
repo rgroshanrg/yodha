@@ -15,11 +15,18 @@ const passportSetup = require('./config/passport-setup');
 
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
-const complainRoutes = require('./routes/complain-routes');
-const suggestionRoutes = require('./routes/suggestion-routes');
+const feedbackRoutes = require('./routes/feedback-routes');
+const mapsRoutes = require('./routes/maps-routes');
+const inventoryRoutes = require('./routes/inventory-routes');
+const covidReqRoutes = require('./routes/covid-request-routes');
+const vaccinationReqRoutes = require('./routes/vaccination-request-routes');
+const dashRoutes = require('./routes/dash-routes');
+const faqRoutes = require('./routes/faq-routes');
+const selfdiagRoutes = require('./routes/selfdiag-routes');
 
 const isLoggedIn = require('./utils/middlewares/isLoggedIn');
 const isNotLoggedIn = require('./utils/middlewares/isNotLoggedIn');
+const { type } = require('os');
 
 
 // View Engine Set
@@ -59,11 +66,32 @@ server.use(express.static(path.join(__dirname, '/public')));
 //set up routes
 server.use('/auth', authRoutes);
 server.use('/profile', profileRoutes);
-server.use('/complain', complainRoutes);
-server.use('/suggestion', suggestionRoutes);
+server.use('/feedback', feedbackRoutes);
+server.use('/maps', mapsRoutes);
+server.use('/inventory', inventoryRoutes);
+server.use('/request-covid', covidReqRoutes);
+server.use('/request-vaccination', vaccinationReqRoutes);
+server.use('/dashboard', dashRoutes);
+server.use('/faq', faqRoutes);
+server.use('/self-diagnosis', selfdiagRoutes);
 
-server.get('/', isLoggedIn, (req, res) => {
-    res.render('index', {name: req.user.name});
+
+server.get('/faq', (req, res) => {
+    res.render('faq');
+})
+
+server.get('/', (req, res) => {
+    var isAuthenticated = false, type = '#', name = '';
+    if(req.user) {
+        isAuthenticated = true;
+        if(req.user.isGeneralPublic === true) { type = 'gp'; } 
+        else if(req.user.isHealthWorker === true) { type = 'hw'; } 
+        else if(req.user.isGovtOfficial === true) { type = 'go'; } 
+        else if(req.user.isAdmin === true) { type = 'ad'; }
+        name = req.user.name;
+    }
+ 
+    res.render('index', {name: name, isAuthenticated : isAuthenticated, type : type});
 });
 
 

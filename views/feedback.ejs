@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/feedback.css">
+    <title>YODHA - Feedback</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="logo">YODHA</a>
+            <ul>
+                <li><a href="/#cards">Services</a></li>
+                <li><a href="#footer">About us</a></li>
+                <% if(type === 'gp'){ %>
+                    <li><a href="#"><%= name %> - General</a></li>
+                  <% }else if(type === 'hw') {%>
+                    <li><a href="#"><%= name %> - Health Worker</a></li>
+                  <% }else if(type === 'go') {%>
+                    <li><a href="#"><%= name %> - Govt. Official</a></li>
+                  <%} else if(type === 'ad') {%>
+                    <li><a href="#"><%= name %> - ADMIN</a></li>
+                  <%}else {%>
+                    <li><a href="#"><%= name %></a></li>
+                  <%}%>
+                 <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="register">
+        <% if(success.length > 0) { %>
+            <div style="background-color: #0dc90d; border: 1px solid #fcc2c3; padding: 20px 30px; margin: auto;">
+                <span style="text-align: center; color: #ffffff; font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: bold; line-height: 20px; text-shadow: 1px 1px rgba(250,250,250,.3);">
+                    <%= success %>
+                </span>
+            </div>
+        <% } %>
+        <form action="/feedback" method="POST">
+            <div id="info">
+                <h1>Complain/Suggestions</h1>
+                <h5>Your suggestions matters. </h5>
+            </div>
+            <div class="input">
+                <label class="label-for-input">
+                    <span>Subject:</span>
+                    <input type="text" name="subject" required placeholder="Subject">
+                </label>
+            </div>
+            <div class="input">
+                <textarea name="message" id="textarea" cols="42" rows="10" placeholder="Enter your complain/suggestion here........"></textarea>
+            </div>
+            <div id="submit">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </section>
+    <footer id="footer">
+        <section>
+            <div>
+              <h1>
+                  About us
+              </h1>
+                <p>
+                    Yodha is a website designed by <br>a group of students to help tackel <br>the problems related to Covid-19. <br> It ia one stop place for Covid-19.
+                </p>
+            </div>
+            <div>
+              <h1>
+                  Useful links
+              </h1>
+              <p>> <a href="#">Services</a><br>> <a href="#">About us</a><br>> <a href="#">Help</a></p>
+          </div>
+            <div>
+                <h1>
+                    Contact us
+                </h1>
+                <p>+91 1122334455<br>+91 6677889900<br>contact@yodha.com</p>
+            </div>
+    
+        </section>
+        <p id="copy">&copy; Yodha 2021</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/174b65465c.js" crossorigin="anonymous"></script>
+</body>
+</html>
