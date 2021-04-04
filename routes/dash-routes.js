@@ -148,6 +148,47 @@ router.get('/complain', isLoggedIn, (req, res) => {
     }
 })
 
+router.get('/chart', isLoggedIn, (req, res) => {
+    if(req.user.isGovtOfficial) {
+            
+        var free = [];
+        var paid = [];
+        var freepaid = [];
+        Inventory.find().then(inv => {
+            inv.forEach(pay => {
+                if(pay.upiref === null)
+                    free.push(pay._creator);
+                else
+                    paid.push(pay._creator);
+            });
+            }).then(a => {
+               for(var i = 0; i < free.length; ++i) {
+                   for(var j = 0; j < paid.length; ++j) {
+                       if(String(free[i]) === String(paid[j])) {
+                           freepaid.push(free[i]);
+                           break;
+                       }
+                   }
+               }
+                console.log("free");
+                free.forEach(element => {
+                    console.log(element);
+                });
+                console.log("paid");
+
+                paid.forEach(element => {
+                    console.log(element);
+                });
+                console.log("freepaid");
+
+                freepaid.forEach(element => {
+                    console.log(element);
+                });
+                res.render('chart', {a :free.length, b : paid.length, c : freepaid.length})
+            })
+    }
+})
+
 
 
 

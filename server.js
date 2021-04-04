@@ -9,6 +9,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const User = require('./utils/models/user-model');
+const Inventory = require('./utils/models/inventory-model');
 
 const keys = require('./config/keys');
 const passportSetup = require('./config/passport-setup');
@@ -90,8 +91,7 @@ server.get('/', (req, res) => {
         else if(req.user.isAdmin === true) { type = 'ad'; }
         name = req.user.name;
     }
- 
-    res.render('index', {name: name, isAuthenticated : isAuthenticated, type : type});
+        res.render('index', {name: name, isAuthenticated : isAuthenticated, type : type});
 });
 
 

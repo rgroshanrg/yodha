@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+  
+  <div id="divchart">
+    <span id="a"><%=a%></span>
+    <span id="b"><%=b%></span>
+    <span id="c"><%=c%></span>
+  </div>
+
+  <script>
+      window.onload = function() {
+        // notBought = Number(document.getElementById('notBought'));
+        // boughtFree = Number(document.getElementById('boughtFree'));
+        // boughtPaid = Number(document.getElementById('boughtPaid'));
+        // console.log(notBought);
+        // console.log(boughtFree);
+        // console.log(boughtPaid);
+        a = document.getElementById('a');
+        b = document.getElementById('b');
+        c = document.getElementById('c');
+        a = Number(a.textContent);
+        b = Number(b.textContent);
+        c = Number(c.textContent);
+        total = a+b+c;
+        a = (100*a)/total;
+        b = (100*b)/total;
+        c = (100*c)/total;
+        console.log(a);
+        console.log(b);
+        console.log(c);
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "Inventory Buying Chart"
+            },
+            data: [{
+                type: "pie",
+                startAngle: 240,
+                yValueFormatString: "##0.00\"%\"",
+                indexLabel: "{label} {y}",
+                dataPoints: [
+                    {y: a , label: "Bought Free"},
+                    {y: b, label: "Bought Paid"},
+                    {y: c, label: "Bought Both"}
+                ]
+            }]
+        });
+        chart.render();
+
+    }
+  </script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
