@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@700&family=Do+Hyeon&family=Montserrat:wght@500&family=Rubik&family=Ubuntu&display=swap" rel="stylesheet">
+    <title>Yodha</title>
+</head>
+<body>
+  <header>
+      <nav>
+        <a href="/" id="logo">YODHA</a>
+        <ul>
+            <li><a href="/#cards">Services</a></li>
+            <li><a href="#footer">About us</a></li>
+            <% if(type === 'gp'){ %>
+                <li><a href="#"><%= name %> - General</a></li>
+              <% }else if(type === 'hw') {%>
+                <li><a href="#"><%= name %> - Health Worker</a></li>
+              <% }else if(type === 'go') {%>
+                <li><a href="#"><%= name %> - Govt. Official</a></li>
+              <%} else if(type === 'ad') {%>
+                <li><a href="#"><%= name %> - ADMIN</a></li>
+              <%}else {%>
+                <li><a href="#"><%= name %></a></li>
+              <%}%>
+             <li><a href="/auth/logout">Logout</a></li>
+        </ul>
+      </nav>
+  </header>
+  <section class="container" id="covidtests">
+    <h1>Covid Test Requests</h1>
+    <% covidreqs.forEach(req => { %>
+        <div class="card">
+            <h6 class="name">Name: <span><%= req.name %></span></h6>
+            <h6 class="email">e-mail: <span><%= req.email %></span></h6>
+            <h6 class="phone">Phone: <span><%= req.phoneNo %></span></h6>
+            <h6 class="age">Age: <span><%= req.age %></span></h6>
+            <h6 class="gender">Gender: <span><%= req.gender %></span></h6>
+            <h6 class="date">Date: <span><%= req.date %></span></h6>
+            <form action="/request-covid/sendmail" method="POST">
+                <input type="email" name="email" required placeholder="Enter Email Id to send.">
+                <label class="radio"><input  type="radio" name="report" value="pos" required><span>Positive </span></label>
+                <label class="radio"><input type="radio" name="report" value="neg" required><span>Negative </span></label>
+                <input style=" background-color: #4f44ec;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                cursor: pointer;" type="submit" value="Email Report">
+            </form>
+        </div>
+    <%})%>
+</section>
+  <footer id="footer">
+    <section>
+        <div>
+          <h1>
+              About us
+          </h1>
+            <p>
+                Yodha is a website designed by <br>a group of students to help tackel <br>the problems related to Covid-19. <br> It ia one stop place for Covid-19.
+            </p>
+        </div>
+        <div>
+          <h1>
+              Useful links
+          </h1>
+          <p>> <a href="#">Services</a><br>> <a href="#">About us</a><br>> <a href="#">Help</a></p>
+      </div>
+        <div>
+            <h1>
+                Contact us
+            </h1>
+            <p>+91 1122334455<br>+91 6677889900<br>contact@yodha.com</p>
+        </div>
+    </section>
+    <p id="copy">&copy; Yodha 2021</p>
+</footer>
+</body>
+</html>

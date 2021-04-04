@@ -4,6 +4,8 @@ const User = require('../utils/models/user-model');
 const Feedback = require('../utils/models/feedback-model');
 const isLoggedIn = require('../utils/middlewares/isLoggedIn');
 const passportLocalMongoose = require('passport-local-mongoose');
+const nodemailer = require('nodemailer');
+const keys = require('../config/keys');
 
 router.get('/', isLoggedIn, (req, res) => {
     var isAuthenticated = false, type = '#', name = '';
@@ -55,6 +57,42 @@ router.post('/', isLoggedIn, (req, res) => {
     
 
 })
+
+
+router.post('/sendmail', (req, res) => {
+    var email = req.body.email;
+    var msg = req.body.text;
+    console.log(email);
+    console.log(req.body);
+    const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: keys.GMAIL.EMAIL_ID,
+            pass: keys.GMAIL.EMAIL_PASS,
+        },
+    })
+    let info = transporter.sendMail({
+        from: '"Yodha - The Real Heroes" <yodhatherealwarriors@gmail.com>',  // sender address
+        to: email, // list of receivers seperated by comma
+        subject: "Yodha - Response for your Complain/Suggestion", // Subject line
+        text: msg, // plain text body
+    }, (error, info) => {
+
+        if (error) {
+            console.log(error)
+            return;
+        }
+        console.log('Message sent successfully!');
+        console.log(info);
+        transporter.close();
+        res.redirect('/dashboard/complain');
+    });
+
+
+    // res.redirect('/dashboard');
+})
+
+
 
 
 module.exports = router;

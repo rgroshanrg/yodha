@@ -19,29 +19,39 @@ router.get('/', isLoggedIn, (req, res) => {
 
 router.post('/', isLoggedIn, (req, res) => {
     // console.log(req.body);
-    User.findById(req.user._id, (err, user) => {
-        let inv = {
-            name : req.body.name,
-            _creator : req.user._id,
-            phone : req.body.phone,
-            address : req.body.address,
-            pin : req.body.pin,
-            upiref : null,
-            name : user.name,
-            email : user.email
-        }
-        if(req.body.upiref) {
-            inv.upiref = req.body.upiref;
-        }
-        new Inventory(inv).save().then(newInv => {
-            console.log(newInv);
-            req.flash('success', 'Order Successfull.')
-            res.redirect('/inventory');
-        }).catch((err) => {
-            console.log(err);
-            res.send(err);
+    if(!req.body.upiref) {
+        Inventory.findOne({_creator : req.user._id}, (err, user) => {
+            if(user != null) {
+                console.log(user);
+                return res.send("You are not allowed to take Free Kit more than Once.")
+            } else {
+                User.findById(req.user._id, (err, user) => {
+                    let inv = {
+                        name : req.body.name,
+                        _creator : req.user._id,
+                        phone : req.body.phone,
+                        address : req.body.address,
+                        pin : req.body.pin,
+                        upiref : null,
+                        name : user.name,
+                        email : user.email
+                    }
+                    if(req.body.upiref) {
+                        inv.upiref = req.body.upiref;
+                    }
+                    new Inventory(inv).save().then(newInv => {
+                        console.log(newInv);
+                        req.flash('success', 'Order Successfull.')
+                        res.redirect('/inventory');
+                    }).catch((err) => {
+                        console.log(err);
+                        res.send(err);
+                    })
+                }).then(user => {}).catch(err => console.log(err));
+            }
         })
-    }).then(user => {}).catch(err => console.log(err));
+    }
+    
     
     
 })

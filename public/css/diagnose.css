@@ -106,18 +106,19 @@ a
     text-align: center;
     font-weight: 500;
 }
-.input
+/* .input
 {
     width: 100%;
     margin-bottom: 10px;
-}
+} */
 input
 {
     border: none;
-    width: 70%;
+    width: 10%;
     height: 30px;
     outline: none;
-    padding-left: 10px;
+    margin-left: 5px;
+    /* padding-left: 10px; */
 }
 .input div
 {
@@ -157,7 +158,9 @@ input[type=submit]
     padding-left: 0px;
     border-radius: 5px;
     cursor: pointer;
+    /* width: 50%; */
 }
+
 input:focus
 {
     border-bottom: 3px solid #3A96FF;
@@ -166,6 +169,7 @@ input:focus
 {
     font-size: 18px;
     margin-bottom: 10px;
+    float: left;
 }
 #reponse
 {

@@ -44,8 +44,17 @@ router.post('/', isLoggedIn, (req, res) => {
 })
 router.post('/sendmail', (req, res) => {
     var email = req.body.email;
+    var rep = req.body.report;
+    var msg = '';
+    if(rep === 'pos') {
+        msg = "You have been Tested POSITIVE for Covid-19 Test";
+    } else if(rep === 'neg') {
+        msg = "You have been Tested NEGATIVE for Covid-19 Test";
+    } else {
+        msg = "You have been Tested NEGATIVE for Covid-19 Test";
+    }
     console.log(email);
-
+    console.log(req.body);
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -55,9 +64,9 @@ router.post('/sendmail', (req, res) => {
     })
     let info = transporter.sendMail({
         from: '"Yodha - The Real Heroes" <yodhatherealwarriors@gmail.com>',  // sender address
-        to: req.user.email, // list of receivers seperated by comma
+        to: email, // list of receivers seperated by comma
         subject: "Yodha - Covid Report", // Subject line
-        text: "You have been Tested NEGATIVE for Covid-19 Test ", // plain text body
+        text: msg, // plain text body
     }, (error, info) => {
 
         if (error) {
@@ -67,7 +76,7 @@ router.post('/sendmail', (req, res) => {
         console.log('Message sent successfully!');
         console.log(info);
         transporter.close();
-        res.redirect('/dashboard');
+        res.redirect('/dashboard/covidtests');
     });
 
 
