@@ -14,7 +14,7 @@ router.get('/', isLoggedIn, (req, res) => {
         else if(req.user.isAdmin === true) { type = 'ad'; }
         name = req.user.name;
     }
-    res.render('inventory', {name: name, isAuthenticated : isAuthenticated, type : type, success: req.flash('success')});
+    res.render('inventory', {name: name, isAuthenticated : isAuthenticated, type : type, success: req.flash('success'), error : req.flash('error')});
 });
 
 router.post('/', isLoggedIn, (req, res) => {
@@ -23,7 +23,9 @@ router.post('/', isLoggedIn, (req, res) => {
         Inventory.findOne({_creator : req.user._id}, (err, user) => {
             if(user != null) {
                 console.log(user);
-                return res.send("You are not allowed to take Free Kit more than Once.")
+                req.flash('error', 'You are not allowed to take Free Kit more than Once.')
+                // return res.send("You are not allowed to take Free Kit more than Once.")
+                return res.redirect('/inventory');
             } else {
                 User.findById(req.user._id, (err, user) => {
                     let inv = {
