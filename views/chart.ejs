@@ -8,11 +8,16 @@
 </head>
 <body>
   <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+  <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+  <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
   
   <div id="divchart">
     <span id="a"><%=a%></span>
     <span id="b"><%=b%></span>
     <span id="c"><%=c%></span>
+    <span id="uc"><%=uc%></span>
+    <span id="vc"><%=vc%></span>
+    <span id="cc"><%=cc%></span>
   </div>
 
   <script>
@@ -33,9 +38,14 @@
         a = (100*a)/total;
         b = (100*b)/total;
         c = (100*c)/total;
-        console.log(a);
-        console.log(b);
-        console.log(c);
+
+        uc = Number(document.getElementById('uc').textContent);
+        vc = Number(document.getElementById('vc').textContent);
+        cc = Number(document.getElementById('cc').textContent);
+
+        vc = (100*vc)/uc;
+        cc = (100*cc)/uc;
+
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             title: {
@@ -53,7 +63,41 @@
                 ]
             }]
         });
+        var chart1 = new CanvasJS.Chart("chartContainer1", {
+            animationEnabled: true,
+            title: {
+                text: "Vaccination Requests Chart"
+            },
+            data: [{
+                type: "pie",
+                startAngle: 240,
+                yValueFormatString: "##0.00\"%\"",
+                indexLabel: "{label} {y}",
+                dataPoints: [
+                    {y: vc , label: "Requested"},
+                    {y: (100-vc), label: "Not Requested"}
+                ]
+            }]
+        });
+        var chart2 = new CanvasJS.Chart("chartContainer2", {
+            animationEnabled: true,
+            title: {
+                text: "Covid Testing Requests Chart"
+            },
+            data: [{
+                type: "pie",
+                startAngle: 240,
+                yValueFormatString: "##0.00\"%\"",
+                indexLabel: "{label} {y}",
+                dataPoints: [
+                    {y: cc , label: "Requested"},
+                    {y: (100-cc), label: "Not Requested"}
+                ]
+            }]
+        });
         chart.render();
+        chart1.render();
+        chart2.render();
 
     }
   </script>
