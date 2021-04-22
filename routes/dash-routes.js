@@ -185,6 +185,14 @@ router.get('/chart', isLoggedIn, (req, res) => {
                     console.log(element);
                 });
                 res.render('chart', {a :free.length, b : paid.length, c : freepaid.length})
+            }).then(b => {
+                User.count({}, (err, uc) => {
+                    Vaccinationreq.count({}, (err, vc) => {
+                        Covidreq.count({}, (err, cc) => {
+                            res.render('chart', {a :free.length, b : paid.length, c : freepaid.length, uc : uc, vc : vc, cc : cc});
+                        })
+                    })
+                })
             })
     }
 })
