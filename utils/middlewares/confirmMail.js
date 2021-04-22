@@ -29,7 +29,7 @@ const hasConfirmedMail = (req, res, next) => {
 
     // send mail with defined transport object
     let info = transporter.sendMail({
-        from: '"Yodha - The Real Heroes" <yodhatherealwarriors@gmail.com>',  // sender address
+        from: '"Yodha - The Real Heroes" <greenworlds2021@gmail.com>',  // sender address
         to: req.user.email, // list of receivers seperated by comma
         subject: "Yodha Account Verification", // Subject line
         text: "Click on the link below to veriy your account " + url, // plain text body

@@ -63,7 +63,7 @@ router.post('/sendmail', (req, res) => {
         },
     })
     let info = transporter.sendMail({
-        from: '"Yodha - The Real Heroes" <yodhatherealwarriors@gmail.com>',  // sender address
+        from: '"Yodha - The Real Heroes" <greenworlds2021@gmail.com>',  // sender address
         to: email, // list of receivers seperated by comma
         subject: "Yodha - Covid Report", // Subject line
         text: msg, // plain text body
